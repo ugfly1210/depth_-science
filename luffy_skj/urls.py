@@ -19,5 +19,6 @@ from skj import views
 urlpatterns = [
     # url(r'^admin/', admin.site.urls),
     url(r'^login/', views.LoginViews.as_view()),
-    url(r'^news/', views.NewsViews.as_view()),
+    url(r'^news/(?P<pk>\d+)\.(?P<format>[a-z0-9]+)$', views.NewsViews.as_view()),
+    url(r'^news/$', views.NewsViews.as_view()),
 ]

@@ -47,11 +47,15 @@ class NewsSerializer(serializers.ModelSerializer):
 
 class NewsViews(views.APIView):
     def get(self, request, *args, **kwargs):
-        # print(request)
-        news_list = models.Article.objects.all()
-        n_obj = news_list.first()
-        ser = NewsSerializer(instance=news_list, many=True, context={'request':request})
-        response = Response(ser.data)
+        pk = kwargs.get('pk')
+        if pk:
+            art_obj = models.Article.objects.filter(pk=pk).first()
+            ser = NewsSerializer(instance=art_obj, context={'request': request})
+            response = Response(ser.data)
+        else:
+            news_list = models.Article.objects.all()
+            ser = NewsSerializer(instance=news_list, many=True, context={'request':request})
+            response = Response(ser.data)
         response['Access-Control-Allow-Origin'] = '*'
         return response
 
