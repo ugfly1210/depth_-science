@@ -15,7 +15,9 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-
+from skj import views
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
+    # url(r'^admin/', admin.site.urls),
+    url(r'^login/', views.LoginViews.as_view()),
+    url(r'^news/', views.NewsViews.as_view()),
 ]
